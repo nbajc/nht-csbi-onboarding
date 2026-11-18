@@ -753,7 +753,7 @@
     <div class="header-title-block">
       <span class="header-kicker mono">Plain-Language Client Onboarding Guide</span>
       <div class="header-main-title">Guide to Getting Started — 5 Simple Steps</div>
-      <span class="header-client">Client: <strong id="hdrClient">[Your Company]</strong></span>
+      <span class="header-client">Client: <strong id="hdrClient">CSBI</strong></span>
     </div>
 
     <div class="header-actions">
@@ -779,7 +779,7 @@
 
         <div class="overview-banner" id="overview">
           <span class="ov-label mono">Overview</span>
-          <p class="ov-text">At Nexus Hestia, we build a <strong>private, locked digital vault for your company's knowledge.</strong> It keeps your files, history, and trade secrets completely safe from public AI tools while turning decades of scattered records into a smart, searchable system. Before we build your vault, we go through 5 simple steps together.</p>
+          <p class="ov-text">At Nexus Hestia, we build a <strong>private, locked digital vault for CSBI's knowledge.</strong> It keeps your files, history, and trade secrets completely safe from public AI tools while turning decades of scattered records into a smart, searchable system. Before we build your vault, we go through 5 simple steps together.</p>
           <span class="ov-steps"><span>5</span> Steps · <span>15</span> Sign-Offs</span>
         </div>
         <!-- Step nodes + gate badges are rendered by JS -->
@@ -857,7 +857,7 @@ const STEPS = [
     horizon: 'ITEMS 2, 3 & 4',
     title: 'Sorting Your Information Into 5 Simple Buckets',
     subtitle: 'Then Deciding What Moves In First',
-    intro: 'Even if your company has over 100 different types of files across multiple departments, we sort everything into 5 easy-to-understand buckets.',
+    intro: 'Even if CSBI has over 100 different types of files across multiple departments, we sort everything into 5 easy-to-understand buckets.',
     gate: 'Buckets & Priorities Set',
     buckets: true,
     items: [
@@ -896,7 +896,7 @@ const STEPS = [
       { code: '7', label: 'Ready-to-Use Connectors', owner: 'We Provide', who: 'nht',
         detail: 'We turn on our built-in tools that immediately read spreadsheets, PDFs, scanned paper, emails, audio/video files, and cloud drives.' },
       { code: '8', label: 'Custom Connectors Needed ASAP', owner: 'We Decide Together', who: 'joint',
-        detail: 'If your company uses specialized or older industry software, we make a short list of custom connectors for our engineers to build right away.' }
+        detail: 'If CSBI uses specialized or older industry software, we make a short list of custom connectors for our engineers to build right away.' }
     ]
   },
   {
@@ -1007,7 +1007,7 @@ function defaultState() {
     status: Array(15).fill(0),
     positions: DEFAULT_POSITIONS.map(p => ({ ...p })),
     form: {
-      orgName: '',
+      orgName: 'CSBI',
       currentStorage: '',
       legacyMedia: '',
       rescueService: true,
@@ -1040,6 +1040,7 @@ function loadState() {
   try {
     const saved = JSON.parse(localStorage.getItem(STORE_KEY) || 'null');
     if (!saved) return base;
+    if (saved.form && !String(saved.form.orgName || '').trim()) saved.form.orgName = base.form.orgName;
     return {
       theme: saved.theme === 'light' ? 'light' : 'dark',
       status: Array.isArray(saved.status) && saved.status.length === 15 ? saved.status.map(n => (n >= 0 && n <= 2 ? n : 0)) : base.status,
@@ -1294,8 +1295,8 @@ function renderWorksheet() {
     </div>
 
     <div class="card-block">
-      <div class="card-block-title"><span>Your Company</span></div>
-      ${field('orgName', 'Company / Organization Name', { ph: 'e.g., CS.BImpact' })}
+      <div class="card-block-title"><span>Client</span></div>
+      ${field('orgName', 'Company / Organization Name', { ph: 'CSBI' })}
     </div>
 
     <div class="card-block">
@@ -1448,7 +1449,7 @@ function renderHeader() {
   const d = totalDone();
   document.getElementById('overallBar').style.width = `${(d / 15) * 100}%`;
   document.getElementById('overallNum').textContent = `${d} / 15`;
-  document.getElementById('hdrClient').textContent = state.form.orgName.trim() || '[Your Company]';
+  document.getElementById('hdrClient').textContent = state.form.orgName.trim() || 'CSBI';
 }
 
 /* ==========================================================================
@@ -1462,7 +1463,7 @@ function briefMarkdown() {
   const st = i => `[${STATUS_LABELS[state.status[i]]}]`;
   return `# NEXUS HESTIA — GUIDE TO GETTING STARTED
 ## One-Page Setup Summary
-Client / Organization: ${or(f.orgName, '[Your Company]')}
+Client / Organization: ${or(f.orgName, 'CSBI')}
 Sign-off progress: ${totalDone()} / 15 done
 
 ## STEP 1: FINDING WHERE YOUR FILES LIVE
@@ -1521,7 +1522,7 @@ function buildPrintSheet() {
       </div>
       <div style="margin-left:auto;text-align:right;">
         <h1>Guide to Getting Started</h1>
-        <div class="p-meta">One-Page Setup Summary · ${esc(or(f.orgName, '[Your Company]'))}</div>
+        <div class="p-meta">One-Page Setup Summary · ${esc(or(f.orgName, 'CSBI'))}</div>
         <div class="p-meta">Sign-off progress: ${totalDone()} / 15 · Printed ${new Date().toLocaleDateString()}</div>
       </div>
     </div>
